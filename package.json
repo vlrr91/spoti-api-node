@@ -1,0 +1,31 @@
+{
+  "name": "spoti-api-node",
+  "version": "1.0.0",
+  "description": "Server to communicate with the spotify API, generate token and get data",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vlrr91/spoti-api-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vlrr91/spoti-api-node/issues"
+  },
+  "homepage": "https://github.com/vlrr91/spoti-api-node#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
+  }
+}
