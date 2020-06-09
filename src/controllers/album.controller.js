@@ -1,6 +1,6 @@
 const { getDataSpotify } = require('../services/spotify');
 
-async function getNewReleases(req, res) {
+async function getNewReleases(req, res, next) {
   const country = req.query.country || 'US';
   const url = `https://api.spotify.com/v1/browse/new-releases?country=${country}`;
 
@@ -15,11 +15,11 @@ async function getNewReleases(req, res) {
 
     res.json(newReleases);
   } catch (error) {
-    return error;
+    return next(error);
   }
 }
 
-async function getTracksAlbum(req, res) {
+async function getTracksAlbum(req, res, next) {
   const id = req.params.id;
   const url = `https://api.spotify.com/v1/albums/${id}/tracks`;
 
@@ -32,7 +32,7 @@ async function getTracksAlbum(req, res) {
 
     res.json(tracks);
   } catch(error) {
-    return error;
+    return next(error);
   }
 }
 

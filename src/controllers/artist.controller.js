@@ -1,6 +1,6 @@
 const { getDataSpotify } = require('../services/spotify');
 
-async function getArtistById(req, res) {
+async function getArtistById(req, res, next) {
   const id = req.params.id;
   const url = `https://api.spotify.com/v1/artists/${id}`;
 
@@ -19,11 +19,11 @@ async function getArtistById(req, res) {
       externalUrl: external_urls.spotify
     });
   } catch (error) {
-    return error;
+    return next(error);
   }
 }
 
-async function getTopTracksByArtist(req, res) {
+async function getTopTracksByArtist(req, res, next) {
   const id = req.params.id;
   const country = req.query.country || 'US';
   const url = `https://api.spotify.com/v1/artists/${id}/top-tracks?country=${country}`;
@@ -36,7 +36,7 @@ async function getTopTracksByArtist(req, res) {
     });
     res.json(topTracks);
   } catch (error) {
-    return error;
+    return next(error);
   }
 }
 

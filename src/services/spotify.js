@@ -3,10 +3,11 @@ require('dotenv').config();
 
 const fetch = require('node-fetch');
 
+const UsefulError = require('../utils/useful-error');
+
 let tokenAPI;
 
 async function generateToken() {
-  console.log('token generado')
   const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
   const headerAuthorization = `Basic ${Buffer.from(clientId + ':' + clientSecret).toString('base64')}`;
@@ -24,7 +25,7 @@ async function generateToken() {
     const { access_token: token } = await response.json();
     return token;
   } catch (error) {
-    console.log(`Error generateToken ${error}`);
+    throw new UsefulError(error);
   }
 }
 
@@ -54,7 +55,7 @@ async function fetchData(url) {
     const response = await fetch(url, { headers });
     return await response.json();
   } catch (error) {
-    console.log(`Error fetchData: ${error}`);
+    throw new UsefulError(error);
   }
 }
 
@@ -72,7 +73,7 @@ async function getDataSpotify(url) {
     return await fetchData(url);
 
   } catch (error) {
-    console.log(`Error getDataSpotify ${error}`);
+    throw new UsefulError(error);
   }
 }
 

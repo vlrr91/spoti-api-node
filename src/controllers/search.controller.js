@@ -1,6 +1,6 @@
 const { getDataSpotify } = require('../services/spotify');
 
-async function searchByType(req, res) {
+async function searchByType(req, res, next) {
   const query = req.query.q;
   const type = req.query.type || 'artist';
   const url = `https://api.spotify.com/v1/search?q=${query}&type=${type}`;
@@ -16,7 +16,7 @@ async function searchByType(req, res) {
     
     res.json(artists);
   } catch (error) {
-    return error;
+    return next(error);
   }
 }
 
