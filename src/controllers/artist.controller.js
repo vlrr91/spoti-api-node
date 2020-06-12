@@ -30,9 +30,22 @@ async function getTopTracksByArtist(req, res, next) {
 
   try {
     const data = await getDataSpotify(url);
+    console.log(data)
     const topTracks = data.tracks.map(track => {
-      const { id, name, artists } = track;
-      return { id, name, artists };
+      const {
+        id,
+        name,
+        artists,
+        preview_url,
+        album
+      } = track;
+      return {
+        id,
+        name,
+        artists,
+        previewUrl: preview_url,
+        album
+      };
     });
     res.json(topTracks);
   } catch (error) {
