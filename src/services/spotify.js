@@ -58,7 +58,7 @@ async function fetchData(url) {
     throw new UsefulError('invalid id', 400);
   }
 
-  if (data.error) {
+  if (data.error && data.error.message !==  'The access token expired') {
     throw new UsefulError(data.error.message);
   }
   
@@ -68,7 +68,7 @@ async function fetchData(url) {
 async function getDataSpotify(url) {
   const data = await fetchData(url);
   const isTokenActive = validateToken(data);
-
+ 
   if (isTokenActive) {
     return data;
   }
