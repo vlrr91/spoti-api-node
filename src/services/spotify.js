@@ -57,6 +57,11 @@ async function fetchData(url) {
   if (data.error && data.error.message === 'invalid id') {
     throw new UsefulError('invalid id', 400);
   }
+
+  if (data.error) {
+    throw new UsefulError(data.error.message);
+  }
+  
   return data;
 }
 
