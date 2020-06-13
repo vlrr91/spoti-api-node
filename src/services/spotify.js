@@ -51,30 +51,25 @@ async function fetchData(url) {
     'Authorization': `Bearer ${token}`
   };
 
-  try {
-    const response = await fetch(url, { headers });
-    return await response.json();
-  } catch (error) {
-    throw new UsefulError(error);
+  const response = await fetch(url, { headers });
+  const data = await response.json();
+
+  if (data.error && data.error.message === 'invalid id') {
+    throw new UsefulError('invalid id', 400);
   }
+  return data;
 }
 
 async function getDataSpotify(url) {
-  try {
-    const data = await fetchData(url);
+  const data = await fetchData(url);
+  const isTokenActive = validateToken(data);
 
-    const isTokenActive = validateToken(data);
-
-    if (isTokenActive) {
-      return data;
-    }
-
-    tokenAPI = await generateToken();
-    return await fetchData(url);
-
-  } catch (error) {
-    throw new UsefulError(error);
+  if (isTokenActive) {
+    return data;
   }
+
+  tokenAPI = await generateToken();
+  return await fetchData(url);
 }
 
 module.exports = {
